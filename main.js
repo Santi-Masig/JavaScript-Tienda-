@@ -7,6 +7,10 @@ class Producto {
   }
 }
 
+//Luxon
+const {DateTime} = luxon;
+const ahora = DateTime.now().toLocaleString();
+
 //Array de productos y carrito
 const productosArray = [];
 
@@ -14,21 +18,9 @@ const productosArray = [];
 productosArray.push(
   new Producto(1, "IPHONE 13 PRO", 500, "iphone.jpg", "iphone13pro.html")
 );
-productosArray.push(
-  new Producto(
-    2,
-    "REDMI NOTE 10 PRO",
-    400,
-    "redminote10pro.jpg",
-    "redminote10pro.html"
-  )
-);
-productosArray.push(
-  new Producto(3, "NIKOND3500", 350, "nikond3500.jpg", "nikond3500.html")
-);
-productosArray.push(
-  new Producto(4, "REDRAGON K630", 80, "reddragonk.jpg", "reddragonk630.html")
-);
+productosArray.push(new Producto(2, "REDMI NOTE 10 PRO", 400, "redminote10pro.jpg", "redminote10pro.html"));
+productosArray.push(new Producto(3, "NIKOND3500", 350, "nikond3500.jpg", "nikond3500.html"));
+productosArray.push(new Producto(4, "REDRAGON K630", 80, "reddragonk.jpg", "reddragonk630.html"));
 
 //Elementos del DOM
 const divProductos = document.getElementById("divProductos");
@@ -39,9 +31,7 @@ divProductos.innerHTML = `
     `;
 
 productosArray.forEach((producto) => {
-  divProductos.innerHTML =
-    divProductos.innerHTML +
-    `
+  divProductos.innerHTML = divProductos.innerHTML + `
     <div id="${producto.id}" class="card" style="width: 18rem">
         <img src="./images/productos/${producto.img}" class="card-img-top" alt="Imagen de Iphone 13 Pro" />
         <div class="card-body">
@@ -58,11 +48,18 @@ productosArray.forEach((producto) => {
 const carrito = [];
 const botonAgregar = document.querySelectorAll(".sumarCar"); //Por alguna razon con GetElement no funciona
 
+//Boton comprar 
 botonAgregar.forEach((boton) => {
   boton.onclick = () => {
     const producto = productosArray.find(
       (prod) => prod.id === parseInt(boton.id)
     );
+
+    Toastify({
+      text:"Se añadio (" +producto.nombre + ") con un precio de: " + producto.precio,
+      className: "info",
+      style: {background: "linear-gradient(to right, #00b09b, #96c93d)"},
+    }).showToast();
 
     const productoCarrito = {
       id: producto.id,
@@ -78,7 +75,6 @@ botonAgregar.forEach((boton) => {
     } else {
       carrito[indexCarrito].cantidad += 1;
     }
-    console.log(carrito);
   };
 });
 
@@ -90,5 +86,8 @@ bttnFin.onclick = () => {
   const totalCompra = carrito
     .map((prod) => prod.precio * prod.cantidad)
     .reduce((elem1, elem2) => elem1 + elem2);
-    Swal.fire("El total de tu compra es: " + totalCompra);
+  Swal.fire("El total de tu compra es: " + totalCompra + "\n" + ahora);
+
 };
+
+
