@@ -10,7 +10,7 @@ const infUser = {};
 
 formUser.onsubmit = (e) => {
     e.preventDefault();
-    Swal.fire("Hey tus datos se enviaron con exito ;)");
+    Swal.fire("Hey " + nombreUser.value + " tus datos se enviaron con exito ;)");
     infUser.nombre = nombreUser.value;
     infUser.apellido = apellidoUser.value;
     infUser.correo = correoUser.value;
@@ -27,8 +27,8 @@ formUser.onsubmit = (e) => {
 const infUserStorage = JSON.parse(localStorage.getItem("infUser"));
 console.log(infUserStorage);
 if (infUserStorage.nombre != "" || infUserStorage !== "") {
-    titulo.innerText = "Hola " + infUserStorage.nombre + " ya dejaste tus datos anteriormente.\n?Quieres ingresar nuevos? no hay problema! Hazlo! ;)"
-}
+    titulo.innerText = "Hola " +
+      infUserStorage.nombre + " ya dejaste tus datos anteriormente.\n¿Quieres ingresar nuevos? no hay problema! Hazlo! ;)";}
 
 
   
