@@ -23,7 +23,7 @@ const buscarProd = async () => {
   });
 
   const carrito = [];
-  const botonAgregar = document.querySelectorAll(".sumarCar"); 
+  const botonAgregar = document.querySelectorAll(".sumarCar");
 
   //Boton comprar
   botonAgregar.forEach((boton) => {
@@ -66,32 +66,32 @@ const buscarProd = async () => {
       .reduce((elem1, elem2) => elem1 + elem2);
     Swal.fire(`El total de tu compra es: ${totalCompra}\nDia:${ahora}`);
   };
-}
+};
 //Funcion para mostrar las categorias en el select
 const mostrarCat = async () => {
   const catFetch = await fetch(`./JSON/categorias.json`);
   const catJson = await catFetch.json();
 
-  catJson.forEach(cat => {
+  catJson.forEach((cat) => {
     const option = document.createElement(`option`);
     option.innerText = `${cat}`;
     lista.append(option);
-  })
-}
+  });
+};
 
 //Funciones para mostrar los productos por categoria a la hora de filtrar
 const mostrarProdCat = async () => {
-  divProd.innerHTML = ``
+  divProd.innerHTML = ``;
   const catSelec = lista.value;
-  console.log(catSelec)
+  console.log(catSelec);
 
   const prodFetch = await fetch(`./JSON/productos.json`);
   const prodJson = await prodFetch.json();
-  
-  const prodFilt = prodJson.filter(prod=> prod.categoria === catSelec)
 
- prodFilt.forEach((prod) => {
-   divProd.innerHTML += `
+  const prodFilt = prodJson.filter((prod) => prod.categoria === catSelec);
+
+  prodFilt.forEach((prod) => {
+    divProd.innerHTML += `
     <div id="${prod.id}" class="card" style="width: 18rem">
         <img src="${prod.img}" class="card-img-top" alt="Imagen de Iphone 13 Pro" />
         <div class="card-body">
@@ -102,7 +102,7 @@ const mostrarProdCat = async () => {
         </div>
       </div>
     `;
- });
+  });
 
   const carrito = [];
   const botonAgregar = document.querySelectorAll(".sumarCar");
@@ -147,14 +147,10 @@ const mostrarProdCat = async () => {
     const totalCompra = carrito
       .map((prod) => prod.precio * prod.cantidad)
       .reduce((elem1, elem2) => elem1 + elem2);
-      Swal.fire(`El total de tu compra es: ${totalCompra}\nDia:${ahora}`);
+    Swal.fire(`El total de tu compra es: ${totalCompra}\nDia:${ahora}`);
   };
-}
-
+};
 
 buscarProd();
 mostrarCat();
-btnFiltrar.onclick = mostrarProdCat
-
-
-
+btnFiltrar.onclick = mostrarProdCat;
